@@ -9,6 +9,7 @@ import AddCaseModal from "./Modals/AddCaseModal";
 import { useQuery } from "urql";
 import AddCategoryModal from "./Modals/AddCategoryModal";
 import AddTagModal from "./Modals/AddTagModal";
+import DeleteCaseModal from "./Modals/DeleteCaseModal";
 
 /* 
   Get id and name of all categories
@@ -34,6 +35,8 @@ const CaseManagementContainer: React.FC = (props) => {
   const [addCategoryModalOpen, setAddCategoryModalOpen] =
     React.useState<boolean>(false);
   const [addTagModalOpen, setAddTagModalOpen] = React.useState<boolean>(false);
+  const [deleteCaseModalOpen, setDeleteCaseModalOpen] = React.useState<boolean>(false);
+
 
   /* NOTE: This uses */
   const [{ data, fetching, error }, executeQuery] = useQuery({
@@ -72,6 +75,12 @@ const CaseManagementContainer: React.FC = (props) => {
         open={addTagModalOpen}
       />
 
+      <DeleteCaseModal
+        onClose={() => setDeleteCaseModalOpen(false)}
+        open={deleteCaseModalOpen}
+      />
+
+
       <Container
         style={{
           width: "100%",
@@ -89,7 +98,7 @@ const CaseManagementContainer: React.FC = (props) => {
         <Button variant="dark" onClick={() => setAddCaseModalOpen(true)}>
           Add Case
         </Button>
-        <Button variant="dark" onClick={() => "redirect"}>
+        <Button variant="dark" onClick={() => setDeleteCaseModalOpen(true)}>
           Delete Case
         </Button>
         <Button variant="dark" onClick={() => "redirect"}>
