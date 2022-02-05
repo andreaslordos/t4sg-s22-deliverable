@@ -11,17 +11,14 @@ import AddCategoryModal from "./Modals/AddCategoryModal";
 import AddTagModal from "./Modals/AddTagModal";
 
 /* 
-  FEATURE 1 TODO:
-  Write a query that will get the name AND id of 
-  every category. Build this query, and verify it 
-  works in Hasura, and then paste the query here.
-
-  Make sure to replace the string that is currently
-  in this variable 
+  Get id and name of all categories
 */
 export const ManagementContainerQuery = `
-query MyQuery {
-  __typename 
+query QueryCategories {
+  category {
+    id
+    name
+  }
 }
 `;
 // END TODO
@@ -48,13 +45,16 @@ const CaseManagementContainer: React.FC = (props) => {
       <h5 className="title">Home Page</h5>
       <Grid container spacing={3}>
         {/*
-          FEATURE 1 TODO:
-          Use the data from the result of the query to render 
+          Uses result of the query to render 
           a CaseCategory for every category in the response.
-          Remember, the response is stored in the "data" variable!
         */}
-
-        {/* END TODO */}
+        {data
+            ? data.category.map(function(category: ManagementCategory, index: number){
+              return <Grid key={index} item xs={4}>
+                <CaseCategory category_id={category.id} />
+              </Grid>
+            })
+            : "Something went wrong"}
       </Grid>
 
       <AddCaseModal
